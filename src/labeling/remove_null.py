@@ -13,9 +13,8 @@ def filter_error_records(input_path, output_path):
     # 2. Tiến hành lọc dữ liệu rác/trống
     for item in data_goc:
         # Lấy title và description, đưa về chuỗi rỗng nếu bị trùng hoặc null, đồng thời xóa khoảng trắng thừa
-        title = str(item.get('title', '')).strip()
-        description = str(item.get('description', '')).strip()
-        content = str(item.get('content', '')).strip()
+        title = str(item.get('title') or '').strip()
+        description = str(item.get('description') or '').strip()
         
         # Điều kiện lọc: Nếu title hoặc description trống rỗng -> Xác định là bản ghi lỗi
         if not title or not description:
@@ -39,8 +38,11 @@ def filter_error_records(input_path, output_path):
     print("=" * 40)
 
 # Tự động nối đường dẫn đến file JSON (Bất kể chạy trên Windows, Mac hay Linux)
-input_path = DATA_DIR / "vne_articles_raw.json"
-output_path = DATA_DIR / "vne_articles_clean.json"
+input_path_vne = DATA_DIR / "vne_articles_raw.json"
+output_path_vne = DATA_DIR / "vne_articles_clean.json"
+
+input_path_rss = DATA_DIR / "rss_articles_raw.json"
+output_path_rss = DATA_DIR / "rss_articles_clean.json"
 
 # Chạy script
-filter_error_records(input_path, output_path)
+filter_error_records(input_path_rss, output_path_rss)
